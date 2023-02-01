@@ -36,9 +36,30 @@ function Menu() {
       <Divider />
       <List>
         {[
-          { text: "My Pills", icon: <MedicationIcon /> },
-          { text: "Friends", icon: <PeopleIcon /> },
-          { text: "Random", icon: <PeopleIcon /> },
+          {
+            text: "My Pills",
+            icon: (
+              <MedicationIcon
+                style={{ height: "2em", fontSize: "2em", color: "darkcyan" }}
+              />
+            ),
+          },
+          {
+            text: "Friends",
+            icon: (
+              <PeopleIcon
+                style={{ height: "2em", fontSize: "2em", color: "darkcyan" }}
+              />
+            ),
+          },
+          {
+            text: "Random",
+            icon: (
+              <PeopleIcon
+                style={{ height: "2em", fontSize: "2em", color: "darkcyan" }}
+              />
+            ),
+          },
         ].map((obj) => (
           <ListItem key={obj.text} disablePadding>
             <ListItemButton>
