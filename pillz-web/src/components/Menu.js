@@ -9,9 +9,15 @@ import ListItemText from "@mui/material/ListItemText";
 import MedicationIcon from "@mui/icons-material/Medication";
 import PeopleIcon from "@mui/icons-material/People";
 import logo from "../images/pillz.png";
+import { useNavigate } from "react-router-dom";
 
 function Menu() {
+  const navigate = useNavigate();
   const drawerWidth = 240;
+
+  const navigateOnClick = (path) => {
+    navigate(path);
+  };
 
   return (
     <Drawer
@@ -43,6 +49,7 @@ function Menu() {
                 style={{ height: "2em", fontSize: "2.5em", color: "darkcyan" }}
               />
             ),
+            path: "/pills",
           },
           {
             text: "Friends",
@@ -61,7 +68,11 @@ function Menu() {
             ),
           },
         ].map((obj) => (
-          <ListItem key={obj.text} disablePadding>
+          <ListItem
+            onClick={() => navigateOnClick(obj.path)}
+            key={obj.text}
+            disablePadding
+          >
             <ListItemButton>
               <ListItemIcon>{obj.icon}</ListItemIcon>
               <ListItemText
