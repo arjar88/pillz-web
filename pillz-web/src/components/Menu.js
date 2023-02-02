@@ -40,7 +40,7 @@ function Menu() {
             text: "My Pills",
             icon: (
               <MedicationIcon
-                style={{ height: "2em", fontSize: "2em", color: "darkcyan" }}
+                style={{ height: "2em", fontSize: "2.5em", color: "darkcyan" }}
               />
             ),
           },
@@ -48,7 +48,7 @@ function Menu() {
             text: "Friends",
             icon: (
               <PeopleIcon
-                style={{ height: "2em", fontSize: "2em", color: "darkcyan" }}
+                style={{ height: "2em", fontSize: "2.5em", color: "darkcyan" }}
               />
             ),
           },
@@ -56,7 +56,7 @@ function Menu() {
             text: "Random",
             icon: (
               <PeopleIcon
-                style={{ height: "2em", fontSize: "2em", color: "darkcyan" }}
+                style={{ height: "2em", fontSize: "2.5em", color: "darkcyan" }}
               />
             ),
           },
@@ -64,7 +64,19 @@ function Menu() {
           <ListItem key={obj.text} disablePadding>
             <ListItemButton>
               <ListItemIcon>{obj.icon}</ListItemIcon>
-              <ListItemText primary={obj.text} />
+              <ListItemText
+                primary={obj.text}
+                style={{
+                  color: "darkcyan",
+                  fontWeight: "bold !important  ",
+                  fontSize: "6em",
+                }}
+                // sx={{
+                //   color: "darkcyan",
+                //   //   fontFamily: "monospace",
+                //   fontWeight: "bold",
+                // }}
+              />
             </ListItemButton>
           </ListItem>
         ))}
