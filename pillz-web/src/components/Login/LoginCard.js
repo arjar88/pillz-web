@@ -6,12 +6,62 @@ import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import logo from "../../images/pillz.png";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { supabase } from "../../helpers/supabase/supabaseClient";
+import { useNavigate } from "react-router-dom";
 
 function LoginCard() {
   const [screen, setScreen] = useState(true);
+  const [creds, setCreds] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
-  const logIn = () => {};
-  const signUp = () => {};
+  const logIn = async () => {
+    try {
+      console.log("was in logIn");
+      console.log(creds, "creds");
+      setLoading(true);
+      const { user, error } = await supabase.auth.signInWithPassword({
+        email: creds.email,
+        password: creds.password,
+      });
+      console.log("user:", user);
+
+      if (error) throw error;
+
+      // const user = supabase.auth.getUser();
+      dispatch(set(user));
+
+      const navigate = useNavigate();
+      navigate("/pills");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const signUp = async () => {
+    try {
+      console.log("was in signUp");
+      setLoading(true);
+      const { data, error } = await supabase.auth.signUp({
+        email: creds.email,
+        password: creds.password,
+      });
+
+      if (error) throw error;
+      await signUp();
+    } catch (error) {
+      setLoading(false);
+      console.log(error.message);
+    }
+  };
+
+  const handleCredsChange = (event) => {
+    setCreds({
+      ...creds,
+      [event.target.name]: event.target.value,
+    });
+  };
 
   return (
     <Card
@@ -37,16 +87,22 @@ function LoginCard() {
             </Grid>
             <Grid item style={{ paddingTop: "2em" }}>
               <TextField
+                name="email"
                 label="Email"
                 id="outlined-start-adornment"
+                value={creds.email}
+                onChange={handleCredsChange}
                 sx={{ m: 1, minWidth: "20em" }}
               />
             </Grid>
             <Grid item style={{ paddingTop: "2em" }}>
               <TextField
+                name="password"
                 id="outlined-password-input"
                 label="Password"
                 type="password"
+                value={creds.password}
+                onChange={handleCredsChange}
                 autoComplete="current-password"
                 sx={{ m: 1, minWidth: "20em" }}
               />
@@ -59,6 +115,7 @@ function LoginCard() {
                   }}
                   variant="contained"
                   size="small"
+                  onClick={logIn}
                 >
                   Log In
                 </Button>
@@ -109,6 +166,7 @@ function LoginCard() {
                   }}
                   variant="contained"
                   size="small"
+                  onClick={signUp}
                 >
                   Sign Up
                 </Button>
