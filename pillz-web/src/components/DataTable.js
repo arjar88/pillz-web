@@ -46,7 +46,7 @@ function DataTable() {
             </Typography>
           </Toolbar>
 
-          <Table style={{ width: "70em" }} Tablearia-label="simple table">
+          <Table style={{ width: "70em" }}>
             <TableHead>
               <TableRow>
                 <TableCell>Medicine Name</TableCell>

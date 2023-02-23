@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 import logo from "../../images/pillz.png";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { set, reset } from "../../helpers/redux/slices/user";
 import { supabase } from "../../helpers/supabase/supabaseClient";
 import { useNavigate } from "react-router-dom";
 
@@ -15,6 +16,7 @@ function LoginCard() {
   const [creds, setCreds] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const logIn = async () => {
     try {
@@ -32,7 +34,6 @@ function LoginCard() {
       // const user = supabase.auth.getUser();
       dispatch(set(user));
 
-      const navigate = useNavigate();
       navigate("/pills");
     } catch (error) {
       console.log(error.message);
@@ -42,6 +43,8 @@ function LoginCard() {
   const signUp = async () => {
     try {
       console.log("was in signUp");
+      console.log(creds, "creds");
+
       setLoading(true);
       const { data, error } = await supabase.auth.signUp({
         email: creds.email,
