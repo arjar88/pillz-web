@@ -25,7 +25,7 @@ const rows = [
   createData("Gingerbread", 356, 16.0, 49, 3.9),
 ];
 
-function DataTable() {
+function DataTable(props) {
   return (
     <div>
       <Paper sx={{ width: "100%", mb: 2 }}>
