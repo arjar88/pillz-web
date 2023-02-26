@@ -10,6 +10,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import OutlinedInput from "@mui/material/OutlinedInput";
+import CircularProgress from "@mui/material/CircularProgress";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { set, reset } from "../../helpers/redux/slices/user";
@@ -85,127 +86,74 @@ function LoginCard() {
         boxShadow: 5,
       }}
     >
-      {screen ? (
-        <CardContent>
-          <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            direction="column"
-          >
-            <Grid item>
-              <img src={logo} width="100" height="110"></img>
-            </Grid>
-            <Grid item style={{ paddingTop: "2em" }}>
-              <TextField
-                name="email"
-                label="Email"
-                id="outlined-start-adornment"
-                value={creds.email}
-                onChange={handleCredsChange}
-                sx={{ m: 1, minWidth: "20em" }}
-              />
-            </Grid>
-            <Grid item style={{ paddingTop: "2em" }}>
-              <OutlinedInput
-                name="password"
-                id="outlined-password-input"
-                label="Password"
-                type={showPassword ? "text" : "password"}
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      //onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                value={creds.password}
-                onChange={handleCredsChange}
-                autoComplete="current-password"
-                sx={{ m: 1, minWidth: "20em" }}
-              />
-            </Grid>
-            <Grid item style={{ paddingTop: "3em" }}>
-              <CardActions>
-                <Button
-                  sx={{
-                    width: 200,
-                  }}
-                  variant="contained"
-                  size="small"
-                  onClick={logIn}
-                >
-                  Log In
-                </Button>
-              </CardActions>
-            </Grid>
-            <Grid>
-              <Button
-                onClick={() => setScreen(!screen)}
-                sx={{ fontWeight: "500" }}
-              >
-                Or Sign Up
-              </Button>
-            </Grid>
+      <CardContent>
+        <Grid
+          container
+          justifyContent="center"
+          alignItems="center"
+          direction="column"
+        >
+          <Grid item>
+            <img src={logo} width="100" height="110"></img>
           </Grid>
-        </CardContent>
-      ) : (
-        <CardContent>
-          <Grid
-            container
-            justifyContent="center"
-            alignItems="center"
-            direction="column"
-          >
-            <Grid item>
-              <img src={logo} width="100" height="110"></img>
-            </Grid>
-            <Grid item style={{ paddingTop: "2em" }}>
-              <TextField
-                label="PLease Enter Your Email"
-                id="outlined-start-adornment"
-                sx={{ m: 1, minWidth: "20em" }}
-              />
-            </Grid>
-            <Grid item style={{ paddingTop: "2em" }}>
-              <TextField
-                id="outlined-password-input"
-                label="Please Enter Your Password"
-                type="password"
-                autoComplete="current-password"
-                sx={{ m: 1, minWidth: "20em" }}
-              />
-            </Grid>
-            <Grid item style={{ paddingTop: "3em" }}>
-              <CardActions>
-                <Button
-                  sx={{
-                    width: 200,
-                  }}
-                  variant="contained"
-                  size="small"
-                  onClick={signUp}
-                >
-                  Sign Up
-                </Button>
-              </CardActions>
-            </Grid>
-            <Grid>
-              <Button
-                onClick={() => setScreen(!screen)}
-                style={{ fontWeight: "500", color: "black" }}
-              >
-                Or Log In
-              </Button>
-            </Grid>
+          <Grid item style={{ paddingTop: "2em" }}>
+            <TextField
+              name="email"
+              label={screen ? "Email" : "Please Enter Your Email"}
+              id="outlined-start-adornment"
+              value={creds.email}
+              onChange={handleCredsChange}
+              sx={{ m: 1, minWidth: "20em" }}
+            />
           </Grid>
-        </CardContent>
-      )}
+          <Grid item style={{ paddingTop: "2em" }}>
+            <OutlinedInput
+              name="password"
+              id="outlined-password-input"
+              label={screen ? "Password" : "Please Enter Your Password"}
+              type={showPassword ? "text" : "password"}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    //onMouseDown={handleMouseDownPassword}
+                    edge="end"
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              value={creds.password}
+              onChange={handleCredsChange}
+              autoComplete="current-password"
+              sx={{ m: 1, minWidth: "20em" }}
+            />
+          </Grid>
+          <Grid item style={{ paddingTop: "3em" }}>
+            <CardActions>
+              <Button
+                sx={{
+                  width: 200,
+                }}
+                variant="contained"
+                size="small"
+                onClick={logIn}
+              >
+                {screen ? "Log In" : "Sign Up"}
+              </Button>
+            </CardActions>
+          </Grid>
+          <Grid>
+            <Button
+              onClick={() => setScreen(!screen)}
+              sx={{ fontWeight: "500" }}
+            >
+              {screen ? "Or Sign Up" : "Or Log In"}
+            </Button>
+          </Grid>
+        </Grid>
+      </CardContent>
     </Card>
   );
 }
