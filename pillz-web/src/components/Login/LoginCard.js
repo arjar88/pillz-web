@@ -5,6 +5,11 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Grid from "@mui/material/Grid";
 import logo from "../../images/pillz.png";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import IconButton from "@mui/material/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import OutlinedInput from "@mui/material/OutlinedInput";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { set, reset } from "../../helpers/redux/slices/user";
@@ -14,9 +19,12 @@ import { useNavigate } from "react-router-dom";
 function LoginCard() {
   const [screen, setScreen] = useState(true);
   const [creds, setCreds] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const logIn = async () => {
     try {
@@ -99,11 +107,23 @@ function LoginCard() {
               />
             </Grid>
             <Grid item style={{ paddingTop: "2em" }}>
-              <TextField
+              <OutlinedInput
                 name="password"
                 id="outlined-password-input"
                 label="Password"
-                type="password"
+                type={showPassword ? "text" : "password"}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      //onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
                 value={creds.password}
                 onChange={handleCredsChange}
                 autoComplete="current-password"
