@@ -1,4 +1,4 @@
-import DataTable from "../components/DataTable";
+import DataTable from "../components/MedicineDataTable/DataTable";
 import Grid from "@mui/material/Grid";
 
 function pills() {
