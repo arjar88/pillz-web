@@ -11,6 +11,7 @@ import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { set, reset } from "../../helpers/redux/slices/user";
@@ -21,7 +22,7 @@ function LoginCard() {
   const [screen, setScreen] = useState(true);
   const [creds, setCreds] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -32,16 +33,17 @@ function LoginCard() {
       console.log("was in logIn");
       console.log(creds, "creds");
       setLoading(true);
-      const { user, error } = await supabase.auth.signInWithPassword({
+      const { data, error } = await supabase.auth.signInWithPassword({
         email: creds.email,
         password: creds.password,
       });
-      console.log("user:", user);
+
+      console.log("user:", data);
 
       if (error) throw error;
 
       // const user = supabase.auth.getUser();
-      dispatch(set(user));
+      dispatch(set(data.user));
 
       navigate("/pills");
     } catch (error) {
@@ -135,12 +137,21 @@ function LoginCard() {
               <Button
                 sx={{
                   width: 200,
+                  height: "2em",
                 }}
                 variant="contained"
                 size="small"
                 onClick={logIn}
               >
-                {screen ? "Log In" : "Sign Up"}
+                {loading ? (
+                  <CircularProgress
+                    sx={{ color: "white", height: "20px", size: "12px" }}
+                  />
+                ) : screen ? (
+                  "Log In"
+                ) : (
+                  "Sign Up"
+                )}
               </Button>
             </CardActions>
           </Grid>
